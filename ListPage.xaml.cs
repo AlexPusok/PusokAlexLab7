@@ -34,7 +34,6 @@ public partial class ListPage : ContentPage
     {
         var product = listView.SelectedItem as Product;
         var shop1 = (Shoplist)BindingContext;
-        
         if (product != null)
         {
             await App.Database.DeleteProductAsync(product, shop1);
