@@ -29,7 +29,7 @@ namespace PusokAlexLab7.Data
                 return _database.InsertAsync(product);
             }
         }
-        public Task<int> DeleteProductAsync(Product product, Shoplist shop1)
+        public Task<int> DeleteProductAsync(Product product)
         {
             return _database.DeleteAsync(product);
         }
@@ -82,6 +82,13 @@ namespace PusokAlexLab7.Data
             + " inner join ListProduct LP"
             + " on P.ID = LP.ProductID where LP.ShopListID = ?",
             shoplistid);
+        }
+
+        public async Task<int> DeleteListProductAsync(Product product, Shoplist shoplist)
+        {
+            return await _database.Table<ListProduct>()
+                .Where(listp => listp.ProductID == product.ID && listp.ShopListID == shoplist.ID)
+                .DeleteAsync();
         }
 
 
